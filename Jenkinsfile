@@ -24,7 +24,7 @@ pipeline {
 	            }
 	            post {
 	                success {
-	                    sh 'docker images ls'
+	                    sh 'docker image ls'
 	                }
 	            }
 	        }
@@ -35,6 +35,11 @@ pipeline {
 	                    }
 	                sh "docker push venkatnarla3/taskapp:${DOCKER_TAG}"
 	            }
+			 post {
+	                success {
+	                    sh 'docker logout'
+	                 }
+	            }
 	        }
 	        stage ('deploy container using ansible') {
 	            steps {
@@ -42,7 +47,7 @@ pipeline {
 	            }
 	            post {
 	                success {
-	                    sh 'docker container ps'
+	                    sh 'docker ps'
 	                }
 	            }
 	        }
